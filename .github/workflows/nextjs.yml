@@ -20,7 +20,7 @@ jobs:
         run: bun install
 
       - name: Build Next.js app (static export)
-        run: bunx next build && bunx next export
+        run: bun run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
