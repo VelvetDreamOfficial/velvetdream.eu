@@ -1,0 +1,32 @@
+name: Deploy Next.js static site with Bun to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # ou la branche de votre choix
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build static site
+        run: bun run build
+          # Pour Next.js 13.4+ (avec app router)
+          # Vérifie que next.config.js contient  output: "export"
+          
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
